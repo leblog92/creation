@@ -1,100 +1,120 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html lang="fr">
 <head>
+<meta charset="UTF-8">
+<title>Impression labels films</title>
+<link rel="icon" type="image/png" href="favicon.png" />
 <style>
-html,body{
-height:100%;
-margin:0;
+@import url('https://fonts.cdnfonts.com/css/verdana');
+
+html, body{
+	overflow-y:hidden;
+	font-family:'Verdana', sans-serif;
+	height:100%;
+	margin:0;
+	user-select:none;
 }
-body{
-font-family:sans-serif;
-font-size:60px;
+
+svg{
+	width:21cm;
+	height:29.7cm;
+	border:1px solid grey;
 }
-div{
-z-index:-1;
+.line{
+	stroke-width:0.05;
 }
-#div1{
-position:absolute;
-top:0%;
-left:0;
-width:50%;
-height:50%;
-background:LightSalmon;
-text-align:center;
-line-height:100px;
+
+.sticker_text{
+	fill:red;
+	font-size:0.8mm;
+	alignment-baseline:middle;
+	text-anchor:middle;
 }
-#div2{
-position:absolute;
-top:0;
-right:0;
-width:50%;
-height:50%;
-background:Moccasin;
-text-align:center;
-line-height:100px;
+
+.sticker{
+	stroke:#eee;
+	fill:none;
 }
-#div3{
-position:absolute;
-bottom:0;
-left:0;
-width:50%;
-height:50%;
-background:Khaki;
-text-align:center;
-line-height:100px;
+
+#div0{
+	position:fixed;
+	top:0;
+	right:0;
+	padding:10px;
+	border:1px solid black;
 }
-#div4{
-position:absolute;
-bottom:0;
-right:0;
-width:50%;
-height:50%;
-background:PaleTurquoise;
-text-align:center;
-line-height:100px;
-}
-#svg1{
-width:100%;
-height:100%;
+
+@media print{
+	svg{width:21cm;height:29.7cm;border:none;}
+	.line{stroke-width:0;}
+	#div0{display:none;}
 }
 </style>
-<title>Four</title>
 </head>
 <body>
-<div id="div1">
+<div id="div0">
+		<label for="labels">Choix label :</label>
+		<input id="labels-input" list="labels">
+		<datalist id="labels">
+			<option value="action">
+			<option value="animation">
+			<option value="arts martiaux">
+			<option value="aventure">
+			<option value="biographie">
+			<option value="comédie">
+			<option value="dramatique">
+			<option value="drame">
+			<option value="fantastique">
+			<option value="guerre">
+			<option value="histoire">
+			<option value="horreur">
+			<option value="musical">
+			<option value="policier">
+			<option value="romance">
+			<option value="SF">
+			<option value="suspense">
+			<option value="thriller">
+			<option value="western">
+		</datalist>
+		<button id="butt">Valider</button>
 </div>
-<div id="div2">
-</div>
-<div id="div3">
-</div>
-<div id="div4">
-</div>
-<svg id="svg1">
-<circle cx="25%" cy="25%" r="100px" fill="black" id="c1"/>
-<circle cx="75%" cy="25%" r="100px" fill="black" id="c2"/>
-<circle cx="25%" cy="75%" r="100px" fill="black" id="c3"/>
-<circle cx="75%" cy="75%" r="100px" fill="black" id="c4"/>
+
+<svg viewBox="0 0 210 297">
+	<path d="m70 0L70 297" stroke="grey" class="line"></path>
+	<path d="m140 0L140 297" stroke="grey" class="line"></path>
+	<g id="place_holder"></g>
 </svg>
 <script>
-var ww=window.innerWidth;
-var wh=window.innerHeight;
-var w=Math.round(Math.random()*100);
-var x=Math.round(Math.random()*100);
-var y=Math.round(Math.random()*100);
-var z=Math.round(Math.random()*100);
-var dv1=document.getElementById("div1");
-var dv2=document.getElementById("div2");
-var dv3=document.getElementById("div3");
-var dv4=document.getElementById("div4");
-var tot=w+x+y+z;
-dv1.innerHTML=w+"/"+tot+" soit "+Math.round(w*100/tot)+"%";
-dv2.innerHTML=x+"/"+tot+" soit "+Math.round(x*100/tot)+"%";
-dv3.innerHTML=y+"/"+tot+" soit "+Math.round(y*100/tot)+"%";
-dv4.innerHTML=z+"/"+tot+" soit "+Math.round(z*100/tot)+"%";
-c1.setAttribute("r",Math.round(w*100/tot)/10+"%");
-c2.setAttribute("r",Math.round(x*100/tot)/10+"%");
-c3.setAttribute("r",Math.round(y*100/tot)/10+"%");
-c4.setAttribute("r",Math.round(z*100/tot)/10+"%");
+var place_holder=document.getElementById("place_holder");
+var butt=document.getElementById("butt");
+var label=document.getElementById("labels-input");
+var x=70;
+var y=7.639;
+
+butt.addEventListener("click", stickit);
+
+function stickit(){
+	let label = document.getElementById("labels-input").value;
+	place_holder.innerHTML = "";
+
+	for(let i = 0; i < 3; i++){
+		for(let j = 0; j < 39; j++){
+			place_holder.innerHTML +=
+				'<g transform="translate('+x*i+' '+y*j+')">' +
+				'<rect x="0" y="0" width="23" height="7" stroke-width="0.05" class="sticker"/>' +
+				'<rect x="23.5" y="0" width="23" height="7" stroke-width="0.05" class="sticker" />' +
+				'<rect x="47" y="0" width="23" height="7" stroke-width="0.05" class="sticker" />' +
+				'<text class="sticker_text" x="11.5" y="3.5">'+label+'</text>' +
+				'<text class="sticker_text" x="35" y="3.5">'+label+'</text>' +
+				'<text class="sticker_text" x="58.5" y="3.5">'+label+'</text>' +
+				'</g>';
+		}
+	}
+
+	document.getElementById("labels-input").value = "";
+}
 </script>
+
 </body>
+</head>
 </html>
