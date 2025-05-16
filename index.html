@@ -11,7 +11,7 @@ html, body{
 	overflow-y:hidden;
 	font-family:'Verdana', sans-serif;
 	height:100%;
-	margin:0;
+	margin:8px;
 	user-select:none;
 }
 
@@ -38,16 +38,18 @@ svg{
 
 #div0{
 	position:fixed;
-	top:0;
-	right:0;
+	top:16px;
+	left:820px;
 	padding:10px;
-	border:1px solid black;
+	border:1px solid grey;
+	box-shadow: 5px 5px 10px rgba(0,0,0,0.25)
 }
 
 @media print{
 	svg{width:21cm;height:29.7cm;border:none;}
 	.line{stroke-width:0;}
 	#div0{display:none;}
+	html,body{margin:0;}
 }
 </style>
 </head>
@@ -76,7 +78,6 @@ svg{
 			<option value="thriller">
 			<option value="western">
 		</datalist>
-		<button id="butt">Valider</button>
 </div>
 
 <svg viewBox="0 0 210 297">
@@ -86,12 +87,11 @@ svg{
 </svg>
 <script>
 var place_holder=document.getElementById("place_holder");
-var butt=document.getElementById("butt");
 var label=document.getElementById("labels-input");
 var x=70;
 var y=7.639;
 
-butt.addEventListener("click", stickit);
+label.addEventListener("change", stickit);
 
 function stickit(){
 	let label = document.getElementById("labels-input").value;
