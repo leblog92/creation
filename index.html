@@ -1,120 +1,112 @@
 <!DOCTYPE HTML>
 <html lang="fr">
-<head>
-<meta charset="UTF-8">
-<title>Impression labels films</title>
-<link rel="icon" type="image/png" href="favicon.png" />
-<style>
-@import url('https://fonts.cdnfonts.com/css/verdana');
-
-html, body{
-	overflow-y:hidden;
-	font-family:'Verdana', sans-serif;
-	height:100%;
-	margin:8px;
-	user-select:none;
-}
-
-svg{
-	width:21cm;
-	height:29.7cm;
-	border:1px solid grey;
-}
-.line{
-	stroke-width:0.05;
-}
-
-.sticker_text{
-	fill:red;
-	font-size:0.8mm;
-	alignment-baseline:middle;
-	text-anchor:middle;
-}
-
-.sticker{
-	stroke:#eee;
-	fill:none;
-}
-
-#div0{
-	position:fixed;
-	top:16px;
-	left:820px;
-	padding:10px;
-	border:1px solid grey;
-	box-shadow: 5px 5px 10px rgba(0,0,0,0.25)
-}
-
-@media print{
-	svg{width:21cm;height:29.7cm;border:none;}
-	.line{stroke-width:0;}
-	#div0{display:none;}
-	html,body{margin:0;}
-}
-</style>
-</head>
-<body>
-<div id="div0">
-		<label for="labels">Choix label :</label>
-		<input id="labels-input" list="labels">
-		<datalist id="labels">
-			<option value="action">
-			<option value="animation">
-			<option value="arts martiaux">
-			<option value="aventure">
-			<option value="biographie">
-			<option value="comédie">
-			<option value="dramatique">
-			<option value="drame">
-			<option value="fantastique">
-			<option value="guerre">
-			<option value="histoire">
-			<option value="horreur">
-			<option value="musical">
-			<option value="policier">
-			<option value="romance">
-			<option value="SF">
-			<option value="suspense">
-			<option value="thriller">
-			<option value="western">
-		</datalist>
-</div>
-
-<svg viewBox="0 0 210 297">
-	<path d="m70 0L70 297" stroke="grey" class="line"></path>
-	<path d="m140 0L140 297" stroke="grey" class="line"></path>
-	<g id="place_holder"></g>
-</svg>
-<script>
-var place_holder=document.getElementById("place_holder");
-var label=document.getElementById("labels-input");
-var x=70;
-var y=7.639;
-
-label.addEventListener("change", stickit);
-
-function stickit(){
-	let label = document.getElementById("labels-input").value;
-	place_holder.innerHTML = "";
-
-	for(let i = 0; i < 3; i++){
-		for(let j = 0; j < 39; j++){
+	<head>
+		<meta charset="UTF-8">
+		<title>Impression labels films</title>
+		<link rel="icon" type="image/png" href="favicon.png" />
+		<style>
+			@import url('https://fonts.cdnfonts.com/css/verdana');
+			html, body{
+			overflow-y:hidden;
+			font-family:'Verdana', sans-serif;
+			height:100%;
+			margin:8px;
+			user-select:none;
+			}
+			svg{
+			width:21cm;
+			height:29.7cm;
+			border:1px solid grey;
+			}
+			.line{
+			stroke-width:0.05;
+			}
+			.sticker_text{
+			fill:red;
+			font-size:0.8mm;
+			alignment-baseline:middle;
+			text-anchor:middle;
+			}
+			.sticker{
+			stroke:#eee;
+			fill:none;
+			}
+			#div0{
+			position:fixed;
+			top:16px;
+			left:820px;
+			padding:10px;
+			border:1px solid grey;
+			box-shadow: 5px 5px 10px rgba(0,0,0,0.25)
+			}
+			@media print{
+			svg{width:21cm;height:29.7cm;border:none;}
+			.line{stroke-width:0;}
+			#div0{display:none;}
+			html,body{margin:0;}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="div0">
+			<label for="labels">Choix label :</label>
+			<input id="labels-input" list="labels">
+			<datalist id="labels">
+				<option value="action">
+				<option value="animation">
+				<option value="arts martiaux">
+				<option value="aventure">
+				<option value="biographie">
+				<option value="comédie">
+				<option value="dramatique">
+				<option value="drame">
+				<option value="fantastique">
+				<option value="guerre">
+				<option value="histoire">
+				<option value="horreur">
+				<option value="musical">
+				<option value="policier">
+				<option value="romance">
+				<option value="SF">
+				<option value="suspense">
+				<option value="thriller">
+				<option value="western">
+			</datalist>
+		</div>
+		<svg viewBox="0 0 210 297">
+		<path d="m70 0L70 297" stroke="grey" class="line"></path>
+		<path d="m140 0L140 297" stroke="grey" class="line"></path>
+		<g id="place_holder"></g>
+		</svg>
+		<script>
+			var place_holder=document.getElementById("place_holder");
+			var label=document.getElementById("labels-input");
+			var x=70;
+			var y=7.639;
+			
+			label.addEventListener("change", stickit);
+			
+			function stickit(){
+			let label = document.getElementById("labels-input").value;
+			place_holder.innerHTML = "";
+			
+			for(let i = 0; i < 3; i++){
+			for(let j = 0; j < 39; j++){
 			place_holder.innerHTML +=
-				'<g transform="translate('+x*i+' '+y*j+')">' +
-				'<rect x="0" y="0" width="23" height="7" stroke-width="0.05" class="sticker"/>' +
-				'<rect x="23.5" y="0" width="23" height="7" stroke-width="0.05" class="sticker" />' +
-				'<rect x="47" y="0" width="23" height="7" stroke-width="0.05" class="sticker" />' +
-				'<text class="sticker_text" x="11.5" y="3.5">'+label+'</text>' +
-				'<text class="sticker_text" x="35" y="3.5">'+label+'</text>' +
-				'<text class="sticker_text" x="58.5" y="3.5">'+label+'</text>' +
-				'</g>';
-		}
-	}
-
-	document.getElementById("labels-input").value = "";
-}
-</script>
-
-</body>
-</head>
+			'<g transform="translate('+x*i+' '+y*j+')">' +
+			'<rect x="0" y="0" width="23" height="7" stroke-width="0.05" class="sticker"/>' +
+			'<rect x="23.5" y="0" width="23" height="7" stroke-width="0.05" class="sticker" />' +
+			'<rect x="47" y="0" width="23" height="7" stroke-width="0.05" class="sticker" />' +
+			'<text class="sticker_text" x="11.5" y="3.5">'+label+'</text>' +
+			'<text class="sticker_text" x="35" y="3.5">'+label+'</text>' +
+			'<text class="sticker_text" x="58.5" y="3.5">'+label+'</text>' +
+			'</g>';
+			}
+			}
+			
+			document.getElementById("labels-input").value = "";
+			}
+		</script>
+	</body>
+	</head>
 </html>
